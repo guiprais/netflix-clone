@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { NavigateBefore, NavigateNext } from '@material-ui/icons';
 
 const MovieRow = ({ title, items }) => {
-  const [scrollX, setScrollX] = useState(-400);
+  const [scrollX, setScrollX] = useState(0);
 
   const handleLeftArrow = () => {
     let x = scrollX + Math.round(window.innerWidth / 2);
