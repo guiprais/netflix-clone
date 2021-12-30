@@ -1,5 +1,3 @@
-/* eslint-disable guard-for-in */
-/* eslint-disable no-restricted-syntax */
 import React from 'react';
 import PropTypes from 'prop-types';
 import './FeaturedMovie.css';
@@ -7,9 +5,10 @@ import './FeaturedMovie.css';
 const FeaturedMovie = ({ item }) => {
   const firstDate = new Date(item.first_air_date);
   const genres = [];
-  for (const i in item.genres) {
-    genres.push(item.genres[i].name);
-  }
+
+  item.genres.forEach((genre) => {
+    genres.push(genre.name);
+  });
 
   let description = item.overview;
 
