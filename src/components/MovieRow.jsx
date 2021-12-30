@@ -1,35 +1,61 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useState } from 'react';
 import './MovieRow.css';
 import PropTypes from 'prop-types';
 
 import { NavigateBefore, NavigateNext } from '@material-ui/icons';
 
-const MovieRow = ({ title, items }) => (
-  <div className="movieRow">
-    <h2>{title}</h2>
+const MovieRow = ({ title, items }) => {
+  const [scrollX, setScrollX] = useState(-400);
 
-    <div className="movieRow--left">
-      <NavigateBefore style={{ fontSize: 50 }} />
-    </div>
+  const handleLeftArrow = () => {
+    let x = scrollX + Math.round(window.innerWidth / 2);
 
-    <div className="movieRow--right">
-      <NavigateNext style={{ fontSize: 50 }} />
-    </div>
+    if (x > 0) {
+      x = 0;
+    }
 
-    <div className="movieRow--listarea">
-      <div className="movieRow--list">
-        {items.results.length > 0 && items.results
-          .map(({ original_title: originalTitle, poster_path: posterPath }) => (
-            <div key={originalTitle} className="movieRow--item">
-              <img src={`https://image.tmdb.org/t/p/w300${posterPath}`} alt={originalTitle} />
-            </div>
-          ))}
+    setScrollX(x);
+  };
+
+  const handleRightArrow = () => {
+    let x = scrollX - Math.round(window.innerWidth / 2);
+    const listW = items.results.length * 150;
+
+    if (window.innerWidth - listW > x) {
+      x = window.innerWidth - listW - 60;
+    }
+
+    setScrollX(x);
+  };
+
+  return (
+    <div className="movieRow">
+      <h2>{title}</h2>
+
+      <div className="movieRow--left" onClick={handleLeftArrow}>
+        <NavigateBefore style={{ fontSize: 50 }} />
       </div>
 
-    </div>
-  </div>
-);
+      <div className="movieRow--right" onClick={handleRightArrow}>
+        <NavigateNext style={{ fontSize: 50 }} />
+      </div>
 
+      <div className="movieRow--listarea">
+        <div className="movieRow--list" style={{ marginLeft: scrollX, width: items.results.length * 150 }}>
+          {items.results.length > 0 && items.results
+            .map(({ original_title: originalTitle, poster_path: posterPath }) => (
+              <div key={originalTitle} className="movieRow--item">
+                <img src={`https://image.tmdb.org/t/p/w300${posterPath}`} alt={originalTitle} />
+              </div>
+            ))}
+        </div>
+
+      </div>
+    </div>
+  );
+};
 MovieRow.propTypes = {
   title: PropTypes.string,
 }.isRequired;
