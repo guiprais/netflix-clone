@@ -47,7 +47,13 @@
 
   opacity: 0;
 
+  border: 0;
+
   transition: all ease 0.5s;
+}
+
+svg {
+  color: white;
 }
 
 .movieRow--left {

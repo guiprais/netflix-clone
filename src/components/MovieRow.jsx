@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import './MovieRow.css';
 import PropTypes from 'prop-types';
@@ -34,13 +32,13 @@ const MovieRow = ({ title, items }) => {
     <div className="movieRow">
       <h2>{title}</h2>
 
-      <div className="movieRow--left" onClick={handleLeftArrow}>
+      <button type="button" className="movieRow--left" onClick={handleLeftArrow}>
         <NavigateBefore style={{ fontSize: 50 }} />
-      </div>
+      </button>
 
-      <div className="movieRow--right" onClick={handleRightArrow}>
+      <button type="button" className="movieRow--right" onClick={handleRightArrow}>
         <NavigateNext style={{ fontSize: 50 }} />
-      </div>
+      </button>
 
       <div className="movieRow--listarea">
         <div className="movieRow--list" style={{ marginLeft: scrollX, width: items.results.length * 150 }}>
